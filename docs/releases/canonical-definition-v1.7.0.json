@@ -1,0 +1,486 @@
+{
+ "components": [
+  {
+   "name": "cainjector",
+   "resources": [
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/jetstack/cert-manager-cainjector",
+       "upstreamImage": "jetstack/cert-manager-cainjector",
+       "version": "v1.5.3"
+      }
+     ],
+     "kind": "Deployment",
+     "name": "cert-manager-cainjector",
+     "namespace": "cert-manager"
+    }
+   ]
+  },
+  {
+   "name": "cert-manager-controller",
+   "resources": [
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "cert-manager",
+     "namespace": "cert-manager"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/jetstack/cert-manager-controller",
+       "upstreamImage": "jetstack/cert-manager-controller",
+       "version": "v1.5.3"
+      }
+     ],
+     "kind": "Deployment",
+     "name": "cert-manager",
+     "namespace": "cert-manager"
+    }
+   ]
+  },
+  {
+   "name": "dashboards",
+   "resources": []
+  },
+  {
+   "name": "cert-manager",
+   "resources": [
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "cert-manager",
+     "namespace": "cert-manager"
+    },
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "cert-manager-webhook",
+     "namespace": "cert-manager"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/jetstack/cert-manager-controller",
+       "upstreamImage": "jetstack/cert-manager-controller",
+       "version": "v1.5.3"
+      }
+     ],
+     "kind": "Deployment",
+     "name": "cert-manager",
+     "namespace": "cert-manager"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/jetstack/cert-manager-cainjector",
+       "upstreamImage": "jetstack/cert-manager-cainjector",
+       "version": "v1.5.3"
+      }
+     ],
+     "kind": "Deployment",
+     "name": "cert-manager-cainjector",
+     "namespace": "cert-manager"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/jetstack/cert-manager-webhook",
+       "upstreamImage": "jetstack/cert-manager-webhook",
+       "version": "v1.5.3"
+      }
+     ],
+     "kind": "Deployment",
+     "name": "cert-manager-webhook",
+     "namespace": "cert-manager"
+    }
+   ]
+  },
+  {
+   "name": "webhook",
+   "resources": [
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "cert-manager-webhook",
+     "namespace": "cert-manager"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/jetstack/cert-manager-webhook",
+       "upstreamImage": "jetstack/cert-manager-webhook",
+       "version": "v1.5.3"
+      }
+     ],
+     "kind": "Deployment",
+     "name": "cert-manager-webhook",
+     "namespace": "cert-manager"
+    }
+   ]
+  },
+  {
+   "name": "external",
+   "resources": [
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "ingress-nginx-external",
+     "namespace": "ingress-nginx"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/ingress-nginx/controller",
+       "upstreamImage": "ingress-nginx/controller",
+       "version": "v1.0.0"
+      }
+     ],
+     "kind": "DaemonSet",
+     "name": "nginx-ingress-controller-external",
+     "namespace": "ingress-nginx"
+    }
+   ]
+  },
+  {
+   "name": "internal",
+   "resources": [
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "ingress-nginx-internal",
+     "namespace": "ingress-nginx"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/ingress-nginx/controller",
+       "upstreamImage": "ingress-nginx/controller",
+       "version": "v1.0.0"
+      }
+     ],
+     "kind": "DaemonSet",
+     "name": "nginx-ingress-controller-internal",
+     "namespace": "ingress-nginx"
+    }
+   ]
+  },
+  {
+   "name": "dual-nginx",
+   "resources": [
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "ingress-nginx-external",
+     "namespace": "ingress-nginx"
+    },
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "ingress-nginx-internal",
+     "namespace": "ingress-nginx"
+    },
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "ingress-nginx-metrics",
+     "namespace": "ingress-nginx"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/ingress-nginx/controller",
+       "upstreamImage": "ingress-nginx/controller",
+       "version": "v1.0.0"
+      }
+     ],
+     "kind": "DaemonSet",
+     "name": "nginx-ingress-controller-external",
+     "namespace": "ingress-nginx"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/ingress-nginx/controller",
+       "upstreamImage": "ingress-nginx/controller",
+       "version": "v1.0.0"
+      }
+     ],
+     "kind": "DaemonSet",
+     "name": "nginx-ingress-controller-internal",
+     "namespace": "ingress-nginx"
+    }
+   ]
+  },
+  {
+   "name": "forecastle",
+   "resources": [
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "forecastle",
+     "namespace": "ingress-nginx"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/stakater/forecastle",
+       "upstreamImage": "stakater/forecastle",
+       "version": "v1.0.66"
+      }
+     ],
+     "kind": "Deployment",
+     "name": "forecastle",
+     "namespace": "ingress-nginx"
+    }
+   ]
+  },
+  {
+   "name": "dashboards",
+   "resources": []
+  },
+  {
+   "name": "configs",
+   "resources": [
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "ingress-nginx-metrics",
+     "namespace": "ingress-nginx"
+    }
+   ]
+  },
+  {
+   "name": "controller",
+   "resources": [
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "ingress-nginx",
+     "namespace": "ingress-nginx"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/ingress-nginx/controller",
+       "upstreamImage": "ingress-nginx/controller",
+       "version": "v1.0.0"
+      }
+     ],
+     "kind": "DaemonSet",
+     "name": "nginx-ingress-controller",
+     "namespace": "ingress-nginx"
+    }
+   ]
+  },
+  {
+   "name": "nginx",
+   "resources": [
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "ingress-nginx",
+     "namespace": "ingress-nginx"
+    },
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "ingress-nginx-metrics",
+     "namespace": "ingress-nginx"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/ingress-nginx/controller",
+       "upstreamImage": "ingress-nginx/controller",
+       "version": "v1.0.0"
+      }
+     ],
+     "kind": "DaemonSet",
+     "name": "nginx-ingress-controller",
+     "namespace": "ingress-nginx"
+    }
+   ]
+  },
+  {
+   "name": "single",
+   "resources": [
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "ingress-nginx",
+     "namespace": "ingress-nginx"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/ingress-nginx/controller",
+       "upstreamImage": "ingress-nginx/controller",
+       "version": "v1.0.0"
+      }
+     ],
+     "kind": "DaemonSet",
+     "name": "nginx-ingress-controller",
+     "namespace": "ingress-nginx"
+    }
+   ]
+  },
+  {
+   "name": "nginx-gke",
+   "resources": [
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "ingress-nginx",
+     "namespace": "ingress-nginx"
+    },
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "ingress-nginx-metrics",
+     "namespace": "ingress-nginx"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/ingress-nginx/controller",
+       "upstreamImage": "ingress-nginx/controller",
+       "version": "v1.0.0"
+      }
+     ],
+     "kind": "DaemonSet",
+     "name": "nginx-ingress-controller",
+     "namespace": "ingress-nginx"
+    }
+   ]
+  },
+  {
+   "name": "config",
+   "resources": []
+  },
+  {
+   "name": "nginx-ldap-auth",
+   "resources": [
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "nginx-ldap-auth",
+     "namespace": "ingress-nginx"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/tpimenta/nginx-ldap-auth",
+       "upstreamImage": "tpimenta/nginx-ldap-auth",
+       "version": "v1.0.6"
+      }
+     ],
+     "kind": "Deployment",
+     "name": "nginx-ldap-auth",
+     "namespace": "ingress-nginx"
+    }
+   ]
+  },
+  {
+   "name": "nginx-ovh",
+   "resources": [
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "ingress-nginx",
+     "namespace": "ingress-nginx"
+    },
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "ingress-nginx-metrics",
+     "namespace": "ingress-nginx"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/ingress-nginx/controller",
+       "upstreamImage": "ingress-nginx/controller",
+       "version": "v1.0.0"
+      }
+     ],
+     "kind": "DaemonSet",
+     "name": "nginx-ingress-controller",
+     "namespace": "ingress-nginx"
+    }
+   ]
+  },
+  {
+   "name": "pomerium",
+   "resources": [
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "pomerium",
+     "namespace": "pomerium"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/pomerium/pomerium",
+       "upstreamImage": "pomerium/pomerium",
+       "version": "v0.15.0"
+      }
+     ],
+     "kind": "Deployment",
+     "name": "pomerium",
+     "namespace": "pomerium"
+    },
+    {
+     "apiVersion": "networking.k8s.io/v1",
+     "containers": [],
+     "kind": "Ingress",
+     "name": "pomerium",
+     "namespace": "pomerium"
+    }
+   ]
+  }
+ ],
+ "module": "fury-kubernetes-ingress",
+ "version": "1.7.0"
+}
